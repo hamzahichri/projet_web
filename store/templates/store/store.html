@@ -1,0 +1,62 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block title %} Store {% endblock title%}
+
+{% block banner %}
+
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel", data-interval="50">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'images/g2.jpg' %}" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'images/v22.jpg' %}" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'images/d22.jpg' %}" class="d-block w-100" alt="...">
+    </div>
+     <div class="carousel-item">
+      <img src="{% static 'images/t12.jpg' %}" class="d-block w-100" alt="...">
+    </div>
+  </div>
+</div>
+
+{% endblock banner %}
+
+{% block content %}
+  <h3 class="text-center">
+    ALL PRODUCTS 
+    
+    <div class="dropdown show">
+      <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Filter by
+      </a>
+
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="{% url 'store' %}?filter=nameA_Z">Name (A-Z)</a>
+        <a class="dropdown-item" href="{% url 'store' %}?filter=price_inc">Price (Low to High)</a>
+        <a class="dropdown-item" href="{% url 'store' %}?filter=price_dec">Price (High to Low)</a>
+      </div>
+    </div>
+  </h3>
+  <div class="row">
+    {% for product in products %}
+    <div class="col-md-6 col-lg-4 my-3">
+      <img class="thumbnail" src="{{ product.imageURL }}" alt="product image not available">
+      <div class="box-element product">
+        <h6><strong>{{ product.name }}</strong></h6>
+        <hr>
+        <button data-product={{ product.id }} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+        <a href="#" class="btn btn-outline-success">View</a>
+        <h4 style="display:inline-block; float:right;">${{ product.price|floatformat:2}}</h4>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+ 
+{% endblock content %}
+
+
+
+
